@@ -15,7 +15,7 @@ public class TestSuiteOne {
 
 	@BeforeMethod
 	public void initializeWebdriver(){
-		Initializer initializer = new Initializer();
+		Initializer initializer = new Initializer(); //someUpdate
 		initializer.createChromeDriverInstance();
 		driver = initializer.getDriver();
 	}
