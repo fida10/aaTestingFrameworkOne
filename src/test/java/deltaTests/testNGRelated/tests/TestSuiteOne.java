@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class TestSuiteOne {
@@ -18,6 +17,8 @@ public class TestSuiteOne {
 		Initializer initializer = new Initializer(); //someUpdate
 		initializer.createChromeDriverInstance();
 		driver = initializer.getDriver();
+
+		WebDriver[] drivers = new WebDriver[6];
 	}
 
 	@Test
