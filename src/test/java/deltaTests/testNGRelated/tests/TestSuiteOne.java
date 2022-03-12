@@ -2,6 +2,7 @@ package deltaTests.testNGRelated.tests;
 
 import deltaTests.Initializer;
 import deltaTests.pageObjectClasses.HomePage;
+import deltaTests.pageObjectClasses.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +15,7 @@ import org.testng.annotations.Test;
 public class TestSuiteOne {
 	private WebDriver driver;
 	private HomePage homepage;
+	private LoginPage loginPage;
 
 	@BeforeMethod
 	public void initializeWebdriver(){
@@ -21,21 +23,29 @@ public class TestSuiteOne {
 		initializer.createChromeDriverInstance();
 		driver = initializer.getDriver();
 		homepage = new HomePage(driver);
+		loginPage = new LoginPage(driver);
 	}
 
 	@Test
-	public void openLoginPage(){
+	public void logIn(){
 		driver.get("http://delta.com");
 //		WebElement loginButton = driver.findElement(By.xpath("//button[contains(@class, 'login')]"));
 //		Actions actions = new Actions(driver);
 //		Assert.assertTrue(loginButton.isDisplayed());
 //		driver.findElement(By.xpath("//div[contains(@class, 'card-img-overlay')]")).click();
 //		actions.moveToElement(loginButton).click().build().perform();
-		Assert.assertTrue(homepage.getLoginButtonOnHomePage().isDisplayed());
-		homepage.getOverlayImageAdvertisement().click();
-		homepage.getLoginButtonOnHomePage().click();
+		homepage.validatePageHasAppeared();
+		homepage.openLoginPageFromHomePageNotValidating();
+		loginPage.validatePageHasAppeared();
+		loginPage.loginToDelta("shihabSylhetTestOne", "Sylhettest", "$shihabSylhetTest1");
+		homepage.validateUserNameOfHomePagedLoggedIn("Shihabtest");
+		System.out.println("TEST PASSED");
 
-		Assert.assertTrue(driver.findElement(By.xpath("//h1[contains(text(), 'To Delta')]")).isDisplayed());
+		try {
+			Thread.sleep(10000);
+		} catch(InterruptedException e){
+
+		}
 
 		try {
 			Thread.sleep(2000);

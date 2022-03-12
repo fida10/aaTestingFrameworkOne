@@ -9,7 +9,7 @@
         <classes>
             <class name="deltaTests.testNGRelated.tests.TestSuiteOne">
                 <methods>
-                    <include name="openLoginPage"/>
+                    <include name="logIn"/>
                 </methods>
             </class>
         </classes>

@@ -4,8 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
-public class HomePage {
+public class HomePage extends BasePageToInheritFrom {
 
 
     @FindBy(xpath = "//button[contains(@class, 'login')]")
@@ -16,8 +17,13 @@ public class HomePage {
     WebElement overlayImageAdvertisement;
     String overlayImageAdvertisementXPath = "//div[contains(@class, 'card-img-overlay')]";
 
+    @FindBy(xpath = "//span[@class='pax-name']")
+    WebElement homePageLoggedInUsernameDisplayed;
+    String homePageLoggedInUsernameDisplayedXPath = "//span[@class='pax-name']";
+
+
     public HomePage(WebDriver driver){
-        PageFactory.initElements(driver, this);
+        super(driver);
 
     }
 
@@ -36,4 +42,24 @@ public class HomePage {
     public String getOverlayImageAdvertisementXPath() {
         return overlayImageAdvertisementXPath;
     }
+
+    //validation methods
+    public void validatePageHasAppeared(){
+        Assert.assertTrue(loginButtonOnHomePage.isDisplayed());
+    }
+
+    public void validatePageHasAppearedHomePageLoggedIn(){
+        Assert.assertTrue(homePageLoggedInUsernameDisplayed.isDisplayed());
+    }
+    public void validateUserNameOfHomePagedLoggedIn(String expectedFirstName){
+        Assert.assertEquals(expectedFirstName, homePageLoggedInUsernameDisplayed.getText());
+    }
+
+
+    //openLoginPage from homepage, does not validate that
+    public void openLoginPageFromHomePageNotValidating(){
+        overlayImageAdvertisement.click();
+        loginButtonOnHomePage.click();
+    }
+
 }
