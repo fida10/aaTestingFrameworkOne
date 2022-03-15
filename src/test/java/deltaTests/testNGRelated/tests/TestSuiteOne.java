@@ -41,6 +41,7 @@ public class TestSuiteOne {
 		homepage.validateUserNameOfHomePagedLoggedIn("Shihabtest");
 		System.out.println("TEST PASSED");
 
+
 		try {
 			Thread.sleep(10000);
 		} catch(InterruptedException e){
@@ -55,4 +56,12 @@ public class TestSuiteOne {
 
 		driver.quit();
 	}
+	@Test
+	public void toAndFromCities(){
+		driver.get("http://delta.com");
+		homepage.enterCitiesToTravelTo("DFW", "CMB");
+
+
+	}
+
 }

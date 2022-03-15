@@ -14,7 +14,7 @@ public class Initializer{
 		WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
 
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 		driver.manage().window().maximize();
 	}
 
