@@ -34,15 +34,13 @@ public class TestSuiteOne {
 		loginPage.loginToDelta("shihabSylhetTestOne", "Sylhettest", "$shihabSylhetTest1");
 		homepage.validateUsernameOfHomePageLoggedIn("Shihabtest");
 		System.out.println("TEST PASSED");
-
 		driver.quit();
 	}
 
 	@Test
 	public void searchForFlight() {
-		driver.get("http://delta.com");
 		homepage.enterCitiesToTravelTo("DFW", "CMB");
-		homePage.selectTypeOfTrip("One Way");
+		homepage.selectTypeOfTrip("One Way");
 		driver.quit();
 	}
 }

@@ -90,7 +90,13 @@ public class HomePage extends BasePageToInheritFrom {
 	// closes alert that appears on homepage, so we can access search field
 	public void closeAlertAdvisory(){
 		Assert.assertTrue(alertAdvisoryCloseButton.isDisplayed());
-		alertAdvisoryCloseButton.click();
+		new Actions(driver)
+				.moveToElement(alertAdvisoryCloseButton)
+				.click()
+				.build()
+				.perform();
+//		alertAdvisoryCloseButton.click();
+
 	}
     //openLoginPageFromHomePage does not validate that login page has opened
 	public void openLoginPageFromHomePageNotValidating(){
@@ -126,7 +132,6 @@ public class HomePage extends BasePageToInheritFrom {
 		Assert.assertTrue(typeOfTripDropDownSelector.isDisplayed());
 		Actions a = new Actions(driver);
 
-		a.moveToElement(driver.findElement(By.xpath("//button[contains(@class, 'advisory-close-icon')]"))).click().build().perform();
 
 		a
 				.moveToElement(typeOfTripDropDownSelector)
