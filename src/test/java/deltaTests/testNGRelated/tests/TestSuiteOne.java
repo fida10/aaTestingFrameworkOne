@@ -42,7 +42,7 @@ public class TestSuiteOne {
 	public void searchForFlight() {
 		driver.get("http://delta.com");
 		homepage.enterCitiesToTravelTo("DFW", "CMB");
-		homePage.selectTypeOfTrip("One Way");
+		homepage.selectTypeOfTrip("One Way");
 		driver.quit();
 	}
 }
