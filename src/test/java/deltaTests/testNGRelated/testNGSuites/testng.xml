@@ -7,11 +7,7 @@
     <test verbose="2" preserve-order="true"
           name="DeltaTestsOne">
         <classes>
-            <class name="deltaTests.testNGRelated.tests.TestSuiteOne">
-                <methods>
-                    <include name="toAndFromCities"/>
-                </methods>
-            </class>
+            <class name="deltaTests.testNGRelated.tests.TestSuiteOne"/>
         </classes>
     </test>
 </suite>
