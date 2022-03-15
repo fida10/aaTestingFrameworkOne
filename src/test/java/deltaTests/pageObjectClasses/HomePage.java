@@ -8,7 +8,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
-import java.security.Key;
 
 public class HomePage extends BasePageToInheritFrom {
 
@@ -32,27 +31,48 @@ public class HomePage extends BasePageToInheritFrom {
 	WebElement typeOfTripDropDownSelector;
 	String typeOfTripDropDownSelectorXPath = "//span[@id = 'selectTripType-val']";
 
+    @FindBy(xpath = "//a[@id='fromAirportName']")
+    WebElement originCity;
+    String originCityXPath = "//a[@id='fromAirportName']";
+
+    @FindBy(xpath = "//a[@id='toAirportName']")
+    WebElement arrivalCity;
+    String arrivalCityXPath = "//a[@id='toAirportName']";
+
+
+    @FindBy(xpath = "//a[@class='airportLookup-list']")
+    WebElement firstDropdownSuggestion;
+    String firstDropdownSuggestionXPath = "//a[@class='airportLookup-list']";
+
+    @FindBy(xpath = "//input[@id='search_input']")
+    WebElement citySearchBox;
+    String citySearchBoxXPath = "//input[@id='search_input']";
+
 	String typeOfTripOptionDynamicXPath = "//ul[@id = 'selectTripType-desc']/li[contains(text(), '%s')]";
 
 	public HomePage(WebDriver driver){
 		super(driver);
 	}
 
-	public WebElement getLoginButtonOnHomePage() {
-		return loginButtonOnHomePage;
-	}
+	public WebElement getLoginButtonOnHomePage() {return loginButtonOnHomePage;}
 
-	public String getLoginButtonHomePageXPath() {
-		return loginButtonHomePageXPath;
-	}
+	public String getLoginButtonHomePageXPath() {return loginButtonHomePageXPath;}
 
-	public WebElement getOverlayImageAdvertisement() {
-		return overlayImageAdvertisement;
-	}
+	public WebElement getOverlayImageAdvertisement() {return overlayImageAdvertisement;}
 
-	public String getOverlayImageAdvertisementXPath() {
-		return overlayImageAdvertisementXPath;
-	}
+	public String getOverlayImageAdvertisementXPath() {return overlayImageAdvertisementXPath;}
+
+    public WebElement getArrivalCity() {return arrivalCity;}
+
+    public String getArrivalCityXPath() {return arrivalCityXPath;}
+
+    public WebElement getFirstDropdownSuggestion() {return firstDropdownSuggestion;}
+
+    public String getFirstDropdownSuggestionXPath() {return firstDropdownSuggestionXPath;}
+
+    public WebElement getCitySearchBox() {return citySearchBox;}
+
+    public String getCitySearchBoxXPath() {return citySearchBoxXPath;}
 
 	//validation methods
 	public void validatePageHasAppeared(){
@@ -67,17 +87,34 @@ public class HomePage extends BasePageToInheritFrom {
 	}
 
 	//workflows
-	//openLoginPageFromHomePage does not validate that login page has opened
+	// closes alert that appears on homepage, so we can access search field
 	public void closeAlertAdvisory(){
 		Assert.assertTrue(alertAdvisoryCloseButton.isDisplayed());
 		alertAdvisoryCloseButton.click();
 	}
-
+    //openLoginPageFromHomePage does not validate that login page has opened
 	public void openLoginPageFromHomePageNotValidating(){
 		//overlayImageAdvertisement.click();
 		closeAlertAdvisory();
 		loginButtonOnHomePage.click();
 	}
+    // selects to and from cities
+    public void enterCitiesToTravelTo(String origin, String arrival){
+        Actions a = new Actions(driver);
+        closeAlertAdvisory();
+        originCity.click();
+        a
+                .sendKeys(origin)
+                .build()
+                .perform();
+        firstDropdownSuggestion.click();
+        arrivalCity.click();
+        a
+                .sendKeys(arrival)
+                .build()
+                .perform();
+        firstDropdownSuggestion.click();
+    }
 
 
 	public void selectTypeOfTrip(String tripType){
@@ -112,6 +149,7 @@ public class HomePage extends BasePageToInheritFrom {
 
 
 	}
+
 
 
 }
