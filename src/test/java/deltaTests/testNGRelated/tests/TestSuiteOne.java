@@ -22,11 +22,11 @@ public class TestSuiteOne {
 		driver = initializer.getDriver();
 		homePage = new HomePage(driver);
 		loginPage = new LoginPage(driver);
+		driver.get("http://delta.com");
 	}
 
 	@Test
 	public void logIn(){
-		driver.get("http://delta.com");
 		homePage.validatePageHasAppeared();
 		homePage.openLoginPageFromHomePageNotValidating();
 
@@ -36,5 +36,11 @@ public class TestSuiteOne {
 		homePage.validateUsernameOfHomePageLoggedIn("Shihabtest");
 
 		driver.quit();
+	}
+
+	@Test
+	public void searchForAFlight(){
+
+		homePage.selectTypeOfTrip("One Way");
 	}
 }
