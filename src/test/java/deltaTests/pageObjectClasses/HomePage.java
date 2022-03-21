@@ -39,7 +39,6 @@ public class HomePage extends BasePageToInheritFrom {
     WebElement arrivalCity;
     String arrivalCityXPath = "//a[@id='toAirportName']";
 
-
     @FindBy(xpath = "//a[@class='airportLookup-list']")
     WebElement firstDropdownSuggestion;
     String firstDropdownSuggestionXPath = "//a[@class='airportLookup-list']";
@@ -47,6 +46,10 @@ public class HomePage extends BasePageToInheritFrom {
     @FindBy(xpath = "//input[@id='search_input']")
     WebElement citySearchBox;
     String citySearchBoxXPath = "//input[@id='search_input']";
+
+	@FindBy(xpath = "//div[@id='input_departureDate_1']")
+	WebElement datePickerOpener;
+	String datePickerOpenerXPath = "//div[@id='input_departureDate_1']";
 
 	String typeOfTripOptionDynamicXPath = "//ul[@id = 'selectTripType-desc']/li[contains(text(), '%s')]";
 
@@ -74,6 +77,10 @@ public class HomePage extends BasePageToInheritFrom {
 
     public String getCitySearchBoxXPath() {return citySearchBoxXPath;}
 
+	public WebElement getDatePickerOpener() {return datePickerOpener;}
+
+	public String getDatePickerOpenerXPath() {return datePickerOpenerXPath;}
+
 	//validation methods
 	public void validatePageHasAppeared(){
 		Assert.assertTrue(loginButtonOnHomePage.isDisplayed());
@@ -90,7 +97,7 @@ public class HomePage extends BasePageToInheritFrom {
 	// closes alert that appears on homepage, so we can access search field
 	public void closeAlertAdvisory(){
 		Assert.assertTrue(alertAdvisoryCloseButton.isDisplayed());
-		new Actions(driver)
+		actions
 				.moveToElement(alertAdvisoryCloseButton)
 				.click()
 				.build()
@@ -106,16 +113,16 @@ public class HomePage extends BasePageToInheritFrom {
 	}
     // selects to and from cities
     public void enterCitiesToTravelTo(String origin, String arrival){
-        Actions a = new Actions(driver);
+
         closeAlertAdvisory();
         originCity.click();
-        a
+        actions
                 .sendKeys(origin)
                 .build()
                 .perform();
         firstDropdownSuggestion.click();
         arrivalCity.click();
-        a
+        actions
                 .sendKeys(arrival)
                 .build()
                 .perform();
@@ -130,10 +137,9 @@ public class HomePage extends BasePageToInheritFrom {
 		//move to and click on that trip type
 		//assert that that trip type now appears in the type of trip box
 		Assert.assertTrue(typeOfTripDropDownSelector.isDisplayed());
-		Actions a = new Actions(driver);
 
 
-		a
+		actions
 				.moveToElement(typeOfTripDropDownSelector)
 				.click()
 				.build()
@@ -142,7 +148,7 @@ public class HomePage extends BasePageToInheritFrom {
 		WebElement typeOfTrip = driver.findElement(By.xpath(String.format(typeOfTripOptionDynamicXPath, tripType)));
 		Assert.assertTrue(typeOfTrip.isDisplayed());
 
-		a
+		actions
 				.moveToElement(typeOfTrip)
 				.click()
 				.build()
@@ -155,6 +161,12 @@ public class HomePage extends BasePageToInheritFrom {
 
 	}
 
+	public void datePicker(int monthAsInt, int dataAsInt, int yearAsInt){
 
+
+
+
+
+	}
 
 }
