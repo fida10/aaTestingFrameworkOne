@@ -8,6 +8,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
+import java.text.DateFormatSymbols;
+
 
 public class HomePage extends BasePageToInheritFrom {
 
@@ -31,71 +33,110 @@ public class HomePage extends BasePageToInheritFrom {
 	WebElement typeOfTripDropDownSelector;
 	String typeOfTripDropDownSelectorXPath = "//span[@id = 'selectTripType-val']";
 
-    @FindBy(xpath = "//a[@id='fromAirportName']")
-    WebElement originCity;
-    String originCityXPath = "//a[@id='fromAirportName']";
+	@FindBy(xpath = "//a[@id='fromAirportName']")
+	WebElement originCity;
+	String originCityXPath = "//a[@id='fromAirportName']";
 
-    @FindBy(xpath = "//a[@id='toAirportName']")
-    WebElement arrivalCity;
-    String arrivalCityXPath = "//a[@id='toAirportName']";
+	@FindBy(xpath = "//a[@id='toAirportName']")
+	WebElement arrivalCity;
+	String arrivalCityXPath = "//a[@id='toAirportName']";
 
-    @FindBy(xpath = "//a[@class='airportLookup-list']")
-    WebElement firstDropdownSuggestion;
-    String firstDropdownSuggestionXPath = "//a[@class='airportLookup-list']";
+	@FindBy(xpath = "//a[@class='airportLookup-list']")
+	WebElement firstDropdownSuggestion;
+	String firstDropdownSuggestionXPath = "//a[@class='airportLookup-list']";
 
-    @FindBy(xpath = "//input[@id='search_input']")
-    WebElement citySearchBox;
-    String citySearchBoxXPath = "//input[@id='search_input']";
+	@FindBy(xpath = "//input[@id='search_input']")
+	WebElement citySearchBox;
+	String citySearchBoxXPath = "//input[@id='search_input']";
 
 	@FindBy(xpath = "//div[@id='input_departureDate_1']")
 	WebElement datePickerOpener;
 	String datePickerOpenerXPath = "//div[@id='input_departureDate_1']";
 
-	String typeOfTripOptionDynamicXPath = "//ul[@id = 'selectTripType-desc']/li[contains(text(), '%s')]";
+	@FindBy(xpath = "//a[@title='To select next month']")
+	WebElement selectNextMonth;
+	String selectNextMonthXPath = "//a[@title='To select next month']";
 
-	public HomePage(WebDriver driver){
+	String typeOfTripOptionDynamicXPath = "//ul[@id = 'selectTripType-desc']/li[contains(text(), '%s')]";
+	String datePickerMonthDynamicXPath = "//span[contains(@class,'dl-datepicker-month') and contains(text(), '%s')]";
+	String datePickerYearDynamicXPath = "//span[contains(@class,'dl-datepicker-year') and contains(text(), '%d')]";
+
+	public HomePage(WebDriver driver) {
 		super(driver);
 	}
 
-	public WebElement getLoginButtonOnHomePage() {return loginButtonOnHomePage;}
+	public WebElement getLoginButtonOnHomePage() {
+		return loginButtonOnHomePage;
+	}
 
-	public String getLoginButtonHomePageXPath() {return loginButtonHomePageXPath;}
+	public String getLoginButtonHomePageXPath() {
+		return loginButtonHomePageXPath;
+	}
 
-	public WebElement getOverlayImageAdvertisement() {return overlayImageAdvertisement;}
+	public WebElement getOverlayImageAdvertisement() {
+		return overlayImageAdvertisement;
+	}
 
-	public String getOverlayImageAdvertisementXPath() {return overlayImageAdvertisementXPath;}
+	public String getOverlayImageAdvertisementXPath() {
+		return overlayImageAdvertisementXPath;
+	}
 
-    public WebElement getArrivalCity() {return arrivalCity;}
+	public WebElement getArrivalCity() {
+		return arrivalCity;
+	}
 
-    public String getArrivalCityXPath() {return arrivalCityXPath;}
+	public String getArrivalCityXPath() {
+		return arrivalCityXPath;
+	}
 
-    public WebElement getFirstDropdownSuggestion() {return firstDropdownSuggestion;}
+	public WebElement getFirstDropdownSuggestion() {
+		return firstDropdownSuggestion;
+	}
 
-    public String getFirstDropdownSuggestionXPath() {return firstDropdownSuggestionXPath;}
+	public String getFirstDropdownSuggestionXPath() {
+		return firstDropdownSuggestionXPath;
+	}
 
-    public WebElement getCitySearchBox() {return citySearchBox;}
+	public WebElement getCitySearchBox() {
+		return citySearchBox;
+	}
 
-    public String getCitySearchBoxXPath() {return citySearchBoxXPath;}
+	public String getCitySearchBoxXPath() {
+		return citySearchBoxXPath;
+	}
 
-	public WebElement getDatePickerOpener() {return datePickerOpener;}
+	public WebElement getDatePickerOpener() {
+		return datePickerOpener;
+	}
 
-	public String getDatePickerOpenerXPath() {return datePickerOpenerXPath;}
+	public String getDatePickerOpenerXPath() {
+		return datePickerOpenerXPath;
+	}
+
+	public WebElement getSelectNextMonth() {
+		return selectNextMonth;
+	}
+
+	public String getSelectNextMonthXPath() {
+		return selectNextMonthXPath;
+	}
 
 	//validation methods
-	public void validatePageHasAppeared(){
+	public void validatePageHasAppeared() {
 		Assert.assertTrue(loginButtonOnHomePage.isDisplayed());
 	}
 
-	public void validatePageHasAppearedHomePageLoggedIn(){
+	public void validatePageHasAppearedHomePageLoggedIn() {
 		Assert.assertTrue(homePageLoggedInUsernameDisplayed.isDisplayed());
 	}
-	public void validateUsernameOfHomePageLoggedIn(String expectedFirstName){
+
+	public void validateUsernameOfHomePageLoggedIn(String expectedFirstName) {
 		Assert.assertEquals(expectedFirstName, homePageLoggedInUsernameDisplayed.getText());
 	}
 
 	//workflows
 	// closes alert that appears on homepage, so we can access search field
-	public void closeAlertAdvisory(){
+	public void closeAlertAdvisory() {
 		Assert.assertTrue(alertAdvisoryCloseButton.isDisplayed());
 		actions
 				.moveToElement(alertAdvisoryCloseButton)
@@ -105,32 +146,34 @@ public class HomePage extends BasePageToInheritFrom {
 //		alertAdvisoryCloseButton.click();
 
 	}
-    //openLoginPageFromHomePage does not validate that login page has opened
-	public void openLoginPageFromHomePageNotValidating(){
+
+	//openLoginPageFromHomePage does not validate that login page has opened
+	public void openLoginPageFromHomePageNotValidating() {
 		//overlayImageAdvertisement.click();
 		closeAlertAdvisory();
 		loginButtonOnHomePage.click();
 	}
-    // selects to and from cities
-    public void enterCitiesToTravelTo(String origin, String arrival){
 
-        closeAlertAdvisory();
-        originCity.click();
-        actions
-                .sendKeys(origin)
-                .build()
-                .perform();
-        firstDropdownSuggestion.click();
-        arrivalCity.click();
-        actions
-                .sendKeys(arrival)
-                .build()
-                .perform();
-        firstDropdownSuggestion.click();
-    }
+	// selects to and from cities
+	public void enterCitiesToTravelTo(String origin, String arrival) {
+
+		closeAlertAdvisory();
+		originCity.click();
+		actions
+				.sendKeys(origin)
+				.build()
+				.perform();
+		firstDropdownSuggestion.click();
+		arrivalCity.click();
+		actions
+				.sendKeys(arrival)
+				.build()
+				.perform();
+		firstDropdownSuggestion.click();
+	}
 
 
-	public void selectTypeOfTrip(String tripType){
+	public void selectTypeOfTrip(String tripType) {
 		//hover over dropdown
 		//click on it
 		//assert that tripType appears (use dynamic string)
@@ -157,16 +200,33 @@ public class HomePage extends BasePageToInheritFrom {
 		Assert.assertEquals(typeOfTripDropDownSelector.getText(), tripType);
 
 
-
-
 	}
 
-	public void datePicker(int monthAsInt, int dataAsInt, int yearAsInt){
+	public void datePicker(int monthAsInt, int dataAsInt, int yearAsInt) {
+		actions
+				.moveToElement(datePickerOpener)
+				.click()
+				.build()
+				.perform();
 
+		String monthAsString = new DateFormatSymbols().getMonths()[monthAsInt - 1];
 
+		String datePickerMonthHeaderXPath = String.format(datePickerMonthDynamicXPath, monthAsString);
+		String datePickerYearHeaderXPath = String.format(datePickerYearDynamicXPath, yearAsInt);
 
+//		WebElement datePickerMonthHeader = driver.findElement(By.xpath(String.format(datePickerMonthDynamicXPath, monthAsString)));
+//		WebElement datePickerYearHeader = driver.findElement(By.xpath(String.format(datePickerYearDynamicXPath, yearAsInt)));
 
+		while (!(exceptionHandling.isDisplayedEnhanced(datePickerMonthHeaderXPath, 1, driver) &&
+		exceptionHandling.isDisplayedEnhanced(datePickerYearHeaderXPath, 1, driver)))  {
 
+			actions
+					.moveToElement(selectNextMonth)
+					.click()
+					.build()
+					.perform();
+		}
 	}
-
 }
+
+
