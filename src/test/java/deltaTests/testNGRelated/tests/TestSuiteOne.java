@@ -43,4 +43,10 @@ public class TestSuiteOne {
 		homepage.selectTypeOfTrip("One Way");
 		driver.quit();
 	}
+	@Test
+	public void datePicker(){
+		homepage.closeAlertAdvisory();
+		homepage.datePicker(1, 27, 2023);
+		driver.quit();
+	}
 }

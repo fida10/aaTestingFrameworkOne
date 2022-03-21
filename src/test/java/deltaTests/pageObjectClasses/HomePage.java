@@ -8,6 +8,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
+
 
 public class HomePage extends BasePageToInheritFrom {
 
@@ -39,7 +42,6 @@ public class HomePage extends BasePageToInheritFrom {
     WebElement arrivalCity;
     String arrivalCityXPath = "//a[@id='toAirportName']";
 
-
     @FindBy(xpath = "//a[@class='airportLookup-list']")
     WebElement firstDropdownSuggestion;
     String firstDropdownSuggestionXPath = "//a[@class='airportLookup-list']";
@@ -53,6 +55,13 @@ public class HomePage extends BasePageToInheritFrom {
 	@FindBy(xpath = "//div[@id = 'input_departureDate_1']")
 	WebElement datePickerOpener;
 	String datePickerOpenerXPath = "//div[@id = 'input_departureDate_1']";
+
+	String datePickerMonthDynamicXPath = "//span[contains(@class, 'dl-datepicker-month') and contains(text(), '%s')]";
+	String datePickerYearDynamicXPath = "//span[contains(@class,'dl-datepicker-year') and contains(text(), '%d')]";
+
+	@FindBy(xpath = "//a[@title = 'To select next month']")
+	WebElement selectNextMonth;
+	String selectNextMonthXPath = "//a[@title = 'To select next month']";
 
 	public HomePage(WebDriver driver){
 		super(driver);
@@ -153,8 +162,32 @@ public class HomePage extends BasePageToInheritFrom {
 	}
 
 	public void datePicker(int monthAsInt, int dateAsInt, int yearAsInt){
+		actions
+				.moveToElement(datePickerOpener)
+				.click()
+				.build()
+				.perform();
+
+		String monthAsString = new DateFormatSymbols().getMonths()[monthAsInt-1];;
+
+		String datePickerMonthHeaderXPath = String.format(datePickerMonthDynamicXPath, monthAsString);
+		String datePickerYearHeaderXPath = String.format(datePickerYearDynamicXPath, yearAsInt);
+
+//		WebElement datePickerMonthHeader = driver.findElement(By.xpath(String.format(datePickerMonthDynamicXPath, monthAsString)));
+//		WebElement datePickerYearHeader = driver.findElement(By.xpath(String.format(datePickerYearDynamicXPath, yearAsInt)));
+
+
+		while (!(exceptionHandling.isDisplayedEnhanced(datePickerMonthHeaderXPath, 1, driver) && exceptionHandling.isDisplayedEnhanced(datePickerYearHeaderXPath, 1, driver))){
+			actions
+					.moveToElement(selectNextMonth)
+					.click()
+					.build()
+					.perform();
+			//add timeout
+		}
 
 	}
+
 
 
 
