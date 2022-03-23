@@ -53,9 +53,9 @@ public class HomePage extends BasePageToInheritFrom {
 	WebElement datePickerOpener;
 	String datePickerOpenerXPath = "//div[@id='input_departureDate_1']";
 
-	@FindBy(xpath = "//span[@class='calDepartLabelCont']")
+	@FindBy(xpath = "//span[@class = 'calenderDepartSpan']")
 	WebElement datePickerDepAfterSelect;
-	String datePickerDeptAfterSelectXpath = "//span[@class='calDepartLabelCont']";
+	String datePickerDeptAfterSelectXpath = "//span[@class = 'calenderDepartSpan']";
 
 	@FindBy(xpath = "//a[@title='To select next month']")
 	WebElement selectNextMonth;
@@ -66,7 +66,7 @@ public class HomePage extends BasePageToInheritFrom {
 	String doneButtonXPath = "//button[@value='done']";
 
 	String typeOfTripOptionDynamicXPath = "//ul[@id = 'selectTripType-desc']/li[contains(text(), '%s')]";
-	String datePickerMonthDynamicXPath = "span[contains(@class,'dl-datepicker-month') and contains(text(), '%s')]";
+	String datePickerMonthDynamicXPath = "//span[contains(@class,'dl-datepicker-month') and contains(text(), '%s')]";
 	String datePickerYearDynamicXPath = "//span[contains(@class,'dl-datepicker-year') and contains(text(), '%d')]";
 
 	public HomePage(WebDriver driver) {
