@@ -56,12 +56,20 @@ public class HomePage extends BasePageToInheritFrom {
 	WebElement datePickerOpener;
 	String datePickerOpenerXPath = "//div[@id = 'input_departureDate_1']";
 
+	@FindBy(xpath = "//span[@class = 'calenderDepartSpan']")
+	WebElement datePickerDepAfterSelect;
+	String datePickerDepAfterSelectXPath = "//span[@class = 'calenderDepartSpan']";
+
 	String datePickerMonthDynamicXPath = "//span[contains(@class, 'dl-datepicker-month') and contains(text(), '%s')]";
 	String datePickerYearDynamicXPath = "//span[contains(@class,'dl-datepicker-year') and contains(text(), '%d')]";
 
 	@FindBy(xpath = "//a[@title = 'To select next month']")
 	WebElement selectNextMonth;
 	String selectNextMonthXPath = "//a[@title = 'To select next month']";
+
+	@FindBy(xpath = "//button[@class = 'donebutton']")
+	WebElement doneButtonDatePicker;
+	String doneButtonDatePickerXPath = "//button[@class = 'donebutton']";
 
 	public HomePage(WebDriver driver){
 		super(driver);
@@ -173,10 +181,6 @@ public class HomePage extends BasePageToInheritFrom {
 		String datePickerMonthHeaderXPath = String.format(datePickerMonthDynamicXPath, monthAsString);
 		String datePickerYearHeaderXPath = String.format(datePickerYearDynamicXPath, yearAsInt);
 
-//		WebElement datePickerMonthHeader = driver.findElement(By.xpath(String.format(datePickerMonthDynamicXPath, monthAsString)));
-//		WebElement datePickerYearHeader = driver.findElement(By.xpath(String.format(datePickerYearDynamicXPath, yearAsInt)));
-
-
 		while (!(exceptionHandling.isDisplayedEnhanced(datePickerMonthHeaderXPath, 1, driver) && exceptionHandling.isDisplayedEnhanced(datePickerYearHeaderXPath, 1, driver))){
 			actions
 					.moveToElement(selectNextMonth)
@@ -185,6 +189,18 @@ public class HomePage extends BasePageToInheritFrom {
 					.perform();
 			//add timeout
 		}
+
+		WebElement datePickerIndivDate = driver.findElement(By.xpath(String.format(datePickerMonthHeaderXPath.concat("/ancestor::div[@class = 'dl-datepicker-header']/following-sibling::div[@class = 'dl-datepicker-calendar-cont']//a[text() = '%d']"), dateAsInt)));
+
+		actions
+				.moveToElement(datePickerIndivDate)
+				.click()
+				.moveToElement(doneButtonDatePicker)
+				.click()
+				.build()
+				.perform();
+
+		Assert.assertEquals(monthAsString.substring(0, 3) + " " + dateAsInt, datePickerDepAfterSelect.getText());
 
 	}
 

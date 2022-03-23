@@ -26,27 +26,27 @@ public class TestSuiteOne {
 		driver.get("http://delta.com");
 	}
 
-	@Test
-	public void openLoginPage() {
-		homepage.validatePageHasAppeared();
-		homepage.openLoginPageFromHomePageNotValidating();
-		loginPage.validatePageHasAppeared();
-		loginPage.loginToDelta("shihabSylhetTestOne", "Sylhettest", "$shihabSylhetTest1");
-		homepage.validateUsernameOfHomePageLoggedIn("Shihabtest");
-		System.out.println("TEST PASSED");
-		driver.quit();
-	}
-
-	@Test
-	public void searchForFlight() {
-		homepage.enterCitiesToTravelTo("DFW", "CMB");
-		homepage.selectTypeOfTrip("One Way");
-		driver.quit();
-	}
+//	@Test
+//	public void openLoginPage() {
+//		homepage.validatePageHasAppeared();
+//		homepage.openLoginPageFromHomePageNotValidating();
+//		loginPage.validatePageHasAppeared();
+//		loginPage.loginToDelta("shihabSylhetTestOne", "Sylhettest", "$shihabSylhetTest1");
+//		homepage.validateUsernameOfHomePageLoggedIn("Shihabtest");
+//		System.out.println("TEST PASSED");
+//		driver.quit();
+//	}
+//
+//	@Test
+//	public void searchForFlight() {
+//		homepage.enterCitiesToTravelTo("DFW", "CMB");
+//		homepage.selectTypeOfTrip("One Way");
+//		driver.quit();
+//	}
 	@Test
 	public void datePicker(){
 		homepage.closeAlertAdvisory();
-		homepage.datePicker(1, 27, 2023);
+		homepage.datePicker(4, 29, 2022);
 		driver.quit();
 	}
 }
