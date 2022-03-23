@@ -47,7 +47,7 @@ public class TestSuiteOne {
 	@Test
 	public void datePicker(){
 		homepage.closeAlertAdvisory();
-		homepage.datePicker(1, 27, 2023);
-		driver.quit()
+		homepage.datePicker(5, 25, 2022);
+		driver.quit();
 	}
 }

@@ -53,12 +53,20 @@ public class HomePage extends BasePageToInheritFrom {
 	WebElement datePickerOpener;
 	String datePickerOpenerXPath = "//div[@id='input_departureDate_1']";
 
+	@FindBy(xpath = "//span[@class='calDepartLabelCont']")
+	WebElement datePickerDepAfterSelect;
+	String datePickerDeptAfterSelectXpath = "//span[@class='calDepartLabelCont']";
+
 	@FindBy(xpath = "//a[@title='To select next month']")
 	WebElement selectNextMonth;
 	String selectNextMonthXPath = "//a[@title='To select next month']";
 
+	@FindBy(xpath = "//button[@value='done']")
+	WebElement doneButtonDate;
+	String doneButtonXPath = "//button[@value='done']";
+
 	String typeOfTripOptionDynamicXPath = "//ul[@id = 'selectTripType-desc']/li[contains(text(), '%s')]";
-	String datePickerMonthDynamicXPath = "//span[contains(@class,'dl-datepicker-month') and contains(text(), '%s')]";
+	String datePickerMonthDynamicXPath = "span[contains(@class,'dl-datepicker-month') and contains(text(), '%s')]";
 	String datePickerYearDynamicXPath = "//span[contains(@class,'dl-datepicker-year') and contains(text(), '%d')]";
 
 	public HomePage(WebDriver driver) {
@@ -202,7 +210,7 @@ public class HomePage extends BasePageToInheritFrom {
 
 	}
 
-	public void datePicker(int monthAsInt, int dataAsInt, int yearAsInt) {
+	public void datePicker(int monthAsInt, int dateAsInt, int yearAsInt) {
 		actions
 				.moveToElement(datePickerOpener)
 				.click()
@@ -218,14 +226,31 @@ public class HomePage extends BasePageToInheritFrom {
 //		WebElement datePickerYearHeader = driver.findElement(By.xpath(String.format(datePickerYearDynamicXPath, yearAsInt)));
 
 		while (!(exceptionHandling.isDisplayedEnhanced(datePickerMonthHeaderXPath, 1, driver) &&
-		exceptionHandling.isDisplayedEnhanced(datePickerYearHeaderXPath, 1, driver)))  {
+		exceptionHandling.isDisplayedEnhanced(datePickerYearHeaderXPath, 1, driver))) {
 
 			actions
 					.moveToElement(selectNextMonth)
 					.click()
 					.build()
 					.perform();
+
+
 		}
+
+		WebElement datePickerIndivDate = driver.findElement(By.xpath(String.format(datePickerMonthHeaderXPath.
+				concat("/ancestor::div[@class= 'dl-datepicker-header']/following-sibling::div[@class='dl-datepicker-calendar-cont']//a[text()= '%d']"), dateAsInt)));
+
+
+		actions
+				.moveToElement(datePickerIndivDate)
+				.click()
+				.moveToElement(doneButtonDate)
+				.click()
+				.build()
+				.perform();
+
+		Assert.assertEquals(monthAsString.substring(0,3) + " " + dateAsInt, datePickerDepAfterSelect.getText());
+
 	}
 }
 
