@@ -65,9 +65,23 @@ public class HomePage extends BasePageToInheritFrom {
 	WebElement doneButtonDate;
 	String doneButtonXPath = "//button[@value='done']";
 
+	@FindBy(xpath = "//span[@id='passengers-val']")
+	WebElement paxPickerDropdownSelector;
+	String paxPickerDropdownSelectorXPath = "//span[@id='passengers-val']";
+
+	@FindBy(xpath = "//ul[@id = 'selectTripType-desc']")
+	WebElement paxPickerDropdownAllOptionsBox;
+	String paxPickerDropdownAllOptionsBoxXPath = "//ul[@id = 'selectTripType-desc']";
+
+	@FindBy(xpath = "//button[@id='btn-book-submit']")
+	WebElement searchForFlightsSubmitButton;
+	String searchForFlightSubmitButtonXPath = "//button[@id='btn-book-submit']";
+
+
 	String typeOfTripOptionDynamicXPath = "//ul[@id = 'selectTripType-desc']/li[contains(text(), '%s')]";
 	String datePickerMonthDynamicXPath = "//span[contains(@class,'dl-datepicker-month') and contains(text(), '%s')]";
 	String datePickerYearDynamicXPath = "//span[contains(@class,'dl-datepicker-year') and contains(text(), '%d')]";
+	String noOfPaxOptionToSelectDynamicXPath = "//ul[@id = 'passengers-desc']/li[contains(text(), '%d')]";
 
 	public HomePage(WebDriver driver) {
 		super(driver);
@@ -165,7 +179,7 @@ public class HomePage extends BasePageToInheritFrom {
 	// selects to and from cities
 	public void enterCitiesToTravelTo(String origin, String arrival) {
 
-		closeAlertAdvisory();
+//		closeAlertAdvisory(); already done in test case
 		originCity.click();
 		actions
 				.sendKeys(origin)
@@ -226,7 +240,7 @@ public class HomePage extends BasePageToInheritFrom {
 //		WebElement datePickerYearHeader = driver.findElement(By.xpath(String.format(datePickerYearDynamicXPath, yearAsInt)));
 
 		while (!(exceptionHandling.isDisplayedEnhanced(datePickerMonthHeaderXPath, 1, driver) &&
-		exceptionHandling.isDisplayedEnhanced(datePickerYearHeaderXPath, 1, driver))) {
+				exceptionHandling.isDisplayedEnhanced(datePickerYearHeaderXPath, 1, driver))) {
 
 			actions
 					.moveToElement(selectNextMonth)
@@ -249,9 +263,56 @@ public class HomePage extends BasePageToInheritFrom {
 				.build()
 				.perform();
 
-		Assert.assertEquals(monthAsString.substring(0,3) + " " + dateAsInt, datePickerDepAfterSelect.getText());
+		Assert.assertEquals(monthAsString.substring(0, 3) + " " + dateAsInt, datePickerDepAfterSelect.getText());
+
+	}
+
+	public void paxCountPicker(int noOfPaxOneToNine) {
+
+		Assert.assertTrue(paxPickerDropdownSelector.isDisplayed());
+
+		actions
+				.moveToElement(paxPickerDropdownSelector)
+				.click()
+				.build()
+				.perform();
+
+		WebElement noOfPaxOptionToSelect = driver.findElement(By.xpath(String.format(noOfPaxOptionToSelectDynamicXPath, noOfPaxOneToNine)));
+
+//		actions
+//				.moveToElement(noOfPaxOptionToSelect)
+//				.build()
+//				.perform();
+
+//		Assert.assertTrue(noOfPaxOptionToSelect.getAttribute("class").contains("select-ui-optionList-hover"));
+//		noOfPaxOptionToSelect.click();
+
+		while(!noOfPaxOptionToSelect.getAttribute("class").contains("select-ui-optionList-hover")){
+			actions
+					.sendKeys(Keys.DOWN)
+					.build()
+					.perform();
+		}
+
+		/*
+		* Reason for using a while loop
+		* When we hover over the passenger count selection we want, there is a delay in the website.
+		* There is a delay between clicking the dropdown and the dropdown options appearing
+		* We use keys.DOWNS to scroll to the options we want. This also has the benefit of checking all the other options
+		* initially using the direct method of clicking, the wrong number of pax would be clicked since it took a while
+		* for all the pax numbers to be displayed
+		* */
+		noOfPaxOptionToSelect.click();
+		Assert.assertTrue(paxPickerDropdownSelector.getText().contains(String.format("%d Passenger", noOfPaxOneToNine)));
+
+	}
+
+	public void hoverOverAndClickSearchForFlightsButton(){
+		actions
+				.moveToElement(searchForFlightsSubmitButton)
+				.click()
+				.build()
+				.perform();
 
 	}
 }
-
-
