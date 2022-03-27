@@ -37,16 +37,21 @@ public class TestSuiteOne {
 //		driver.quit();
 //	}
 //
+	@Test
+	public void searchForFlight() {
+		homepage.closeAlertAdvisory();
+		homepage.enterCitiesToTravelTo("DFW", "CMB");
+		homepage.selectTypeOfTrip("One Way");
+		homepage.datePicker(4, 29, 2022);
+		homepage.paxCountPicker(6);
+		homepage.hoverOverAndClickSearchForFlightsButton();
+
+//		driver.quit();
+	}
 //	@Test
-//	public void searchForFlight() {
-//		homepage.enterCitiesToTravelTo("DFW", "CMB");
-//		homepage.selectTypeOfTrip("One Way");
+//	public void datePicker(){
+//		homepage.closeAlertAdvisory();
+//		homepage.datePicker(4, 29, 2022);
 //		driver.quit();
 //	}
-	@Test
-	public void datePicker(){
-		homepage.closeAlertAdvisory();
-		homepage.datePicker(4, 29, 2022);
-		driver.quit();
-	}
 }

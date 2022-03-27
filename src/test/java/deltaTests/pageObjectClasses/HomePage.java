@@ -4,13 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
 import java.text.DateFormatSymbols;
-import java.util.Calendar;
-
 
 public class HomePage extends BasePageToInheritFrom {
 
@@ -71,6 +68,20 @@ public class HomePage extends BasePageToInheritFrom {
 	WebElement doneButtonDatePicker;
 	String doneButtonDatePickerXPath = "//button[@class = 'donebutton']";
 
+	@FindBy(xpath = "//span[@id = 'passengers-val']")
+	WebElement paxPickerDropdownSelector;
+	String paxPickerDropdownSelectorXPath = "//span[@id = 'passengers-val']";
+
+	@FindBy(xpath = "//ul[@id = 'passengers-desc']")
+	WebElement paxPickerDropDownAllOptionsBox;
+	String paxPickerDropDownAllOptionsBoxXPath = "//ul[@id = 'passengers-desc']";
+
+	String noOfPaxOptionToSelectDynamicXPath = "//ul[@id = 'passengers-desc']/li[contains(text(), '%d')]";
+
+	@FindBy(xpath = "//button[@id = 'btn-book-submit']")
+	WebElement searchForFlightsSubmitButton;
+	String searchForFlightsSubmitButtonXPath = "//button[@id = 'btn-book-submit']";
+
 	public HomePage(WebDriver driver){
 		super(driver);
 	}
@@ -127,7 +138,7 @@ public class HomePage extends BasePageToInheritFrom {
 	}
     // selects to and from cities
     public void enterCitiesToTravelTo(String origin, String arrival){
-        closeAlertAdvisory();
+//        closeAlertAdvisory(); already done in test case in testng
         originCity.click();
         actions
                 .sendKeys(origin)
@@ -204,6 +215,42 @@ public class HomePage extends BasePageToInheritFrom {
 
 	}
 
+	public void paxCountPicker(int noOfPaxOneToNine){
+		Assert.assertTrue(paxPickerDropdownSelector.isDisplayed());
+
+		actions
+				.moveToElement(paxPickerDropdownSelector)
+				.click()
+				.build()
+				.perform();
+
+		WebElement noOfPaxOptionToSelect = driver.findElement(By.xpath(String.format(noOfPaxOptionToSelectDynamicXPath, noOfPaxOneToNine)));
+
+		while(!noOfPaxOptionToSelect.getAttribute("class").contains("select-ui-optionList-hover")){
+			actions
+					.sendKeys(Keys.DOWN)
+					.build()
+					.perform();
+		}
+		/*
+		* Reason for using a while loop
+		* When we hover over the passenger count selection we want, there is a slight delay in the website
+		* This is because there is a delay between clicking the dropdown and the dropdown options appearing
+		* Therefore we use the Keys.DOWN to scroll through the options until we get to the option we want
+		* This also has the added benefit of checking all the other options
+		* */
+
+		noOfPaxOptionToSelect.click();
+		Assert.assertTrue(paxPickerDropdownSelector.getText().contains(String.format("%d Passenger", noOfPaxOneToNine)));
+	}
+
+	public void hoverOverAndClickSearchForFlightsButton(){
+		actions
+				.moveToElement(searchForFlightsSubmitButton)
+				.click()
+				.build()
+				.perform();
+	}
 
 
 
