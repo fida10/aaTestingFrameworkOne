@@ -23,7 +23,7 @@ public class TestSuiteOne {
 		driver = initializer.getDriver();
 		homepage = new HomePage(driver);
 		loginPage = new LoginPage(driver);
-		driver.get("http://delta.com");
+		driver.get("https://www.aa.com/");
 	}
 
 //	@Test
