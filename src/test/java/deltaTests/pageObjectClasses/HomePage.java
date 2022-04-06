@@ -244,7 +244,7 @@ public class HomePage extends BasePageToInheritFrom {
 				.build()
 				.perform();
 
-		Assert.assertTrue(((String)(((JavascriptExecutor) driver).executeScript(String.format("return document.getElementById('%s').value", datePickerDepTextBoxID)))).contains(monthAsInt + "/" + dateAsInt + "/" + yearAsInt));
+		Assert.assertTrue(((String)(((JavascriptExecutor) driver).executeScript(String.format("return document.getElementById('%s').value", datePickerDeptTextBoxID)))).contains(monthAsInt + "/" + dateAsInt + "/" + yearAsInt));
 	}
 
 	public void paxCountPicker(int noOfPaxOneToNine) {
@@ -263,9 +263,4 @@ public class HomePage extends BasePageToInheritFrom {
 				.perform();
 
 	}
-}
-
-
-
-
 }
