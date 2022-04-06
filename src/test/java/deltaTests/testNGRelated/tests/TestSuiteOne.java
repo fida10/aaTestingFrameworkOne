@@ -23,7 +23,7 @@ public class TestSuiteOne {
 		driver = initializer.getDriver();
 		homepage = new HomePage(driver);
 		loginPage = new LoginPage(driver);
-		driver.get("https://www.aa.com/");
+		driver.get("https://aa.com");
 	}
 
 //	@Test
@@ -42,16 +42,9 @@ public class TestSuiteOne {
 		homepage.closeAlertAdvisory();
 		homepage.enterCitiesToTravelTo("DFW", "CMB");
 		homepage.selectTypeOfTrip("One Way");
-		homepage.datePicker(04, 29, 2022);
-		homepage.paxCountPicker(6);
+		homepage.datePicker(5, 25, 2022);
+		homepage.paxCountPicker(5);
 		homepage.hoverOverAndClickSearchForFlightsButton();
-
 //		driver.quit();
 	}
-//	@Test
-//	public void datePicker(){
-//		homepage.closeAlertAdvisory();
-//		homepage.datePicker(4, 29, 2022);
-//		driver.quit();
-//	}
 }

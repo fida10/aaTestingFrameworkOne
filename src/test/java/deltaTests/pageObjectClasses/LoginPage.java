@@ -47,6 +47,7 @@ public class LoginPage extends BasePageToInheritFrom{
 	//workflow methods
 	public void loginToDelta(String username, String lastName, String password){
 
+
 		actions
 				.moveToElement(usernameBox)
 				.click()
