@@ -23,24 +23,35 @@ public class TestSuiteOne {
 		driver = initializer.getDriver();
 		homepage = new HomePage(driver);
 		loginPage = new LoginPage(driver);
-		driver.get("http://delta.com");
+		driver.get("https://www.aa.com/");
 	}
 
-	@Test
-	public void openLoginPage() {
-		homepage.validatePageHasAppeared();
-		homepage.openLoginPageFromHomePageNotValidating();
-		loginPage.validatePageHasAppeared();
-		loginPage.loginToDelta("shihabSylhetTestOne", "Sylhettest", "$shihabSylhetTest1");
-		homepage.validateUsernameOfHomePageLoggedIn("Shihabtest");
-		System.out.println("TEST PASSED");
-		driver.quit();
-	}
-
+//	@Test
+//	public void openLoginPage() {
+//		homepage.validatePageHasAppeared();
+//		homepage.openLoginPageFromHomePageNotValidating();
+//		loginPage.validatePageHasAppeared();
+//		loginPage.loginToDelta("shihabSylhetTestOne", "Sylhettest", "$shihabSylhetTest1");
+//		homepage.validateUsernameOfHomePageLoggedIn("Shihabtest");
+//		System.out.println("TEST PASSED");
+//		driver.quit();
+//	}
+//
 	@Test
 	public void searchForFlight() {
+		homepage.closeAlertAdvisory();
 		homepage.enterCitiesToTravelTo("DFW", "CMB");
 		homepage.selectTypeOfTrip("One Way");
-		driver.quit();
+		homepage.datePicker(04, 29, 2022);
+		homepage.paxCountPicker(6);
+		homepage.hoverOverAndClickSearchForFlightsButton();
+
+//		driver.quit();
 	}
+//	@Test
+//	public void datePicker(){
+//		homepage.closeAlertAdvisory();
+//		homepage.datePicker(4, 29, 2022);
+//		driver.quit();
+//	}
 }

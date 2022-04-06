@@ -1,19 +1,19 @@
 package deltaTests.pageObjectClasses;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
+import java.text.DateFormatSymbols;
+import java.util.Arrays;
+import java.util.Locale;
 
 public class HomePage extends BasePageToInheritFrom {
 
-	@FindBy(xpath = "//button[contains(@class, 'advisory-close-icon')]")
+	@FindBy(xpath = "//button[@id = 'globalMessageClose']")
 	WebElement alertAdvisoryCloseButton;
-	String alertAdvisoryCloseButtonXPath = "//button[contains(@class, 'advisory-close-icon')]";
+	String alertAdvisoryCloseButtonXPath = "//button[@id = 'globalMessageClose']";
 
 	@FindBy(xpath = "//button[contains(@class, 'login')]")
 	WebElement loginButtonOnHomePage;
@@ -31,24 +31,60 @@ public class HomePage extends BasePageToInheritFrom {
 	WebElement typeOfTripDropDownSelector;
 	String typeOfTripDropDownSelectorXPath = "//span[@id = 'selectTripType-val']";
 
-    @FindBy(xpath = "//a[@id='fromAirportName']")
+    @FindBy(xpath = "//input[@id='reservationFlightSearchForm.originAirport']")
     WebElement originCity;
-    String originCityXPath = "//a[@id='fromAirportName']";
+    String originCityXPath = "//input[@id='reservationFlightSearchForm.originAirport']";
 
-    @FindBy(xpath = "//a[@id='toAirportName']")
+    @FindBy(xpath = "//input[@id='reservationFlightSearchForm.destinationAirport']")
     WebElement arrivalCity;
-    String arrivalCityXPath = "//a[@id='toAirportName']";
-
+    String arrivalCityXPath = "//input[@id='reservationFlightSearchForm.originAirport']";
 
     @FindBy(xpath = "//a[@class='airportLookup-list']")
     WebElement firstDropdownSuggestion;
     String firstDropdownSuggestionXPath = "//a[@class='airportLookup-list']";
 
+	String firstDropdownSuggestionDynamicXPath = "//li[@class = 'ui-menu-item']/a[contains(text(), '%s')]";
+
     @FindBy(xpath = "//input[@id='search_input']")
     WebElement citySearchBox;
     String citySearchBoxXPath = "//input[@id='search_input']";
 
-	String typeOfTripOptionDynamicXPath = "//ul[@id = 'selectTripType-desc']/li[contains(text(), '%s')]";
+	String typeOfTripOptionDynamicXPath = "//div[@id = 'bookingCheckboxContainer']//span[contains(text(), '%s')]";
+
+	@FindBy(xpath = "//button[@class = 'ui-datepicker-trigger']")
+	WebElement datePickerOpener;
+	String datePickerOpenerXPath = "//button[@class = 'ui-datepicker-trigger']";
+
+	@FindBy(xpath = "//input[@name = 'departDate']")
+	WebElement datePickerDepTextBox;
+	String datePickerDepTextBoxXPath = "//input[@name = 'departDate']";
+	String datePickerDepTextBoxID = "aa-leavingOn";
+
+	String datePickerMonthDynamicXPath = "//span[contains(@class, 'ui-datepicker-month') and contains(text(), '%s')]";
+	String datePickerYearDynamicXPath = "//span[contains(@class,'ui-datepicker-year') and contains(text(), '%d')]";
+
+	@FindBy(xpath = "//a[@aria-label = 'Next Month']")
+	WebElement selectNextMonth;
+	String selectNextMonthXPath = "//a[@aria-label = 'Next Month']";
+
+	@FindBy(xpath = "//button[@class = 'donebutton']")
+	WebElement doneButtonDatePicker;
+	String doneButtonDatePickerXPath = "//button[@class = 'donebutton']";
+
+	@FindBy(xpath = "//select[@id = 'flightSearchForm.adultOrSeniorPassengerCount']")
+	WebElement paxPickerDropdownSelector;
+	String paxPickerDropdownSelectorXPath = "//select[@id = 'flightSearchForm.adultOrSeniorPassengerCount']";
+	String paxPickerDropdownSelectorID = "flightSearchForm.adultOrSeniorPassengerCount";
+
+	@FindBy(xpath = "//ul[@id = 'passengers-desc']")
+	WebElement paxPickerDropDownAllOptionsBox;
+	String paxPickerDropDownAllOptionsBoxXPath = "//ul[@id = 'passengers-desc']";
+
+	String noOfPaxOptionToSelectDynamicXPath = "//ul[@id = 'passengers-desc']/li[contains(text(), '%d')]";
+
+	@FindBy(xpath = "//input[@id = 'flightSearchForm.button.reSubmit']")
+	WebElement searchForFlightsSubmitButton;
+	String searchForFlightsSubmitButtonXPath = "//input[@id = 'flightSearchForm.button.reSubmit']";
 
 	public HomePage(WebDriver driver){
 		super(driver);
@@ -90,7 +126,7 @@ public class HomePage extends BasePageToInheritFrom {
 	// closes alert that appears on homepage, so we can access search field
 	public void closeAlertAdvisory(){
 		Assert.assertTrue(alertAdvisoryCloseButton.isDisplayed());
-		new Actions(driver)
+		actions
 				.moveToElement(alertAdvisoryCloseButton)
 				.click()
 				.build()
@@ -106,22 +142,27 @@ public class HomePage extends BasePageToInheritFrom {
 	}
     // selects to and from cities
     public void enterCitiesToTravelTo(String origin, String arrival){
-        Actions a = new Actions(driver);
-        closeAlertAdvisory();
-        originCity.click();
-        a
+//        closeAlertAdvisory(); already done in test case in testng
+		originCity.clear();
+		originCity.click();
+
+		actions
                 .sendKeys(origin)
                 .build()
                 .perform();
-        firstDropdownSuggestion.click();
-        arrivalCity.click();
-        a
+
+		driver.findElement(By.xpath(String.format(firstDropdownSuggestionDynamicXPath, origin.toUpperCase()))).click();
+
+		arrivalCity.clear();
+		arrivalCity.click();
+
+		actions
                 .sendKeys(arrival)
                 .build()
                 .perform();
-        firstDropdownSuggestion.click();
-    }
 
+		driver.findElement(By.xpath(String.format(firstDropdownSuggestionDynamicXPath, arrival.toUpperCase()))).click();
+    }
 
 	public void selectTypeOfTrip(String tripType){
 		//hover over dropdown
@@ -129,30 +170,104 @@ public class HomePage extends BasePageToInheritFrom {
 		//assert that tripType appears (use dynamic string)
 		//move to and click on that trip type
 		//assert that that trip type now appears in the type of trip box
-		Assert.assertTrue(typeOfTripDropDownSelector.isDisplayed());
-		Actions a = new Actions(driver);
+		//div[@id = 'bookingCheckboxContainer']//span[contains(text(), '%s')]
 
+//		Assert.assertTrue(typeOfTripDropDownSelector.isDisplayed());
+//
+//		actions
+//				.moveToElement(typeOfTripDropDownSelector)
+//				.click()
+//				.build()
+//				.perform();
 
-		a
-				.moveToElement(typeOfTripDropDownSelector)
-				.click()
-				.build()
-				.perform();
+//		tripType.split(" ")
+		StringBuilder sb = new StringBuilder(tripType.toLowerCase());
 
-		WebElement typeOfTrip = driver.findElement(By.xpath(String.format(typeOfTripOptionDynamicXPath, tripType)));
+		char firstCharUpperCase =  (char) (sb.charAt(0) - 32);
+		sb.deleteCharAt(0).reverse();
+		sb.append(firstCharUpperCase).reverse();
+
+		WebElement typeOfTrip = driver.findElement(By.xpath(String.format(typeOfTripOptionDynamicXPath, sb)));
 		Assert.assertTrue(typeOfTrip.isDisplayed());
 
-		a
+		actions
 				.moveToElement(typeOfTrip)
 				.click()
 				.build()
 				.perform();
 
-		Assert.assertEquals(typeOfTripDropDownSelector.getText(), tripType);
+//		Assert.assertEquals(typeOfTripDropDownSelector.getText(), tripType);
+	}
 
+	public void datePicker(int monthAsInt, int dateAsInt, int yearAsInt){
+		actions
+				.moveToElement(datePickerOpener)
+				.click()
+				.build()
+				.perform();
 
+		String monthAsString = new DateFormatSymbols().getMonths()[monthAsInt-1];
 
+		String datePickerMonthHeaderXPath = String.format(datePickerMonthDynamicXPath, monthAsString);
+		String datePickerYearHeaderXPath = String.format(datePickerYearDynamicXPath, yearAsInt);
 
+		while (!(exceptionHandling.isDisplayedEnhanced(datePickerMonthHeaderXPath, 1, driver) && exceptionHandling.isDisplayedEnhanced(datePickerYearHeaderXPath, 1, driver))){
+			actions
+					.moveToElement(selectNextMonth)
+					.click()
+					.build()
+					.perform();
+			//add timeout
+		}
+
+		WebElement datePickerIndivDate = driver.findElement(By.xpath(String.format(datePickerMonthHeaderXPath.concat("/parent::div/parent::div/following-sibling::table//a[text() = '%d']"), dateAsInt)));
+
+		actions
+				.moveToElement(datePickerIndivDate)
+				.click()
+				.build()
+				.perform();
+
+		Assert.assertTrue(((String)(((JavascriptExecutor) driver).executeScript(String.format("return document.getElementById('%s').value", datePickerDepTextBoxID)))).contains(monthAsInt + "/" + dateAsInt + "/" + yearAsInt));
+	}
+
+	public void paxCountPicker(int noOfPaxOneToNine){
+		Assert.assertTrue(paxPickerDropdownSelector.isDisplayed());
+		new Select(paxPickerDropdownSelector).selectByVisibleText(String.valueOf(noOfPaxOneToNine));
+
+//		actions
+//				.moveToElement(paxPickerDropdownSelector)
+//				.click()
+//				.build()
+//				.perform();
+//
+//		WebElement noOfPaxOptionToSelect = driver.findElement(By.xpath(String.format(noOfPaxOptionToSelectDynamicXPath, noOfPaxOneToNine)));
+//
+//		while(!noOfPaxOptionToSelect.getAttribute("class").contains("select-ui-optionList-hover")){
+//			actions
+//					.sendKeys(Keys.DOWN)
+//					.build()
+//					.perform();
+//		}
+//		/*
+//		* Reason for using a while loop
+//		* When we hover over the passenger count selection we want, there is a slight delay in the website
+//		* This is because there is a delay between clicking the dropdown and the dropdown options appearing
+//		* Therefore we use the Keys.DOWN to scroll through the options until we get to the option we want
+//		* This also has the added benefit of checking all the other options
+//		* */
+//
+//		noOfPaxOptionToSelect.click();
+//		Assert.assertTrue(paxPickerDropdownSelector.getText().contains(String.format("%d Passenger", noOfPaxOneToNine)));
+		Assert.assertEquals(((String)(((JavascriptExecutor) driver).executeScript(String.format("return document.getElementById('%s').value", paxPickerDropdownSelectorID)))), String.valueOf(noOfPaxOneToNine));
+	}
+
+	public void hoverOverAndClickSearchForFlightsButton(){
+		actions
+				.moveToElement(searchForFlightsSubmitButton)
+				.click()
+				.build()
+				.perform();
 	}
 
 
