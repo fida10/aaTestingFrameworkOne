@@ -42,7 +42,7 @@ public class TestSuiteOne {
 		homepage.closeAlertAdvisory();
 		homepage.enterCitiesToTravelTo("DFW", "CMB");
 		homepage.selectTypeOfTrip("One Way");
-		homepage.datePicker(4, 29, 2022);
+		homepage.datePicker(04, 29, 2022);
 		homepage.paxCountPicker(6);
 		homepage.hoverOverAndClickSearchForFlightsButton();
 

@@ -1,9 +1,6 @@
 package deltaTests.pageObjectClasses;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -61,6 +58,7 @@ public class HomePage extends BasePageToInheritFrom {
 	@FindBy(xpath = "//input[@name = 'departDate']")
 	WebElement datePickerDepTextBox;
 	String datePickerDepTextBoxXPath = "//input[@name = 'departDate']";
+	String datePickerDepTextBoxID = "aa-leavingOn";
 
 	String datePickerMonthDynamicXPath = "//span[contains(@class, 'ui-datepicker-month') and contains(text(), '%s')]";
 	String datePickerYearDynamicXPath = "//span[contains(@class,'ui-datepicker-year') and contains(text(), '%d')]";
@@ -76,6 +74,7 @@ public class HomePage extends BasePageToInheritFrom {
 	@FindBy(xpath = "//select[@id = 'flightSearchForm.adultOrSeniorPassengerCount']")
 	WebElement paxPickerDropdownSelector;
 	String paxPickerDropdownSelectorXPath = "//select[@id = 'flightSearchForm.adultOrSeniorPassengerCount']";
+	String paxPickerDropdownSelectorID = "flightSearchForm.adultOrSeniorPassengerCount";
 
 	@FindBy(xpath = "//ul[@id = 'passengers-desc']")
 	WebElement paxPickerDropDownAllOptionsBox;
@@ -207,7 +206,7 @@ public class HomePage extends BasePageToInheritFrom {
 				.build()
 				.perform();
 
-		String monthAsString = new DateFormatSymbols().getMonths()[monthAsInt-1];;
+		String monthAsString = new DateFormatSymbols().getMonths()[monthAsInt-1];
 
 		String datePickerMonthHeaderXPath = String.format(datePickerMonthDynamicXPath, monthAsString);
 		String datePickerYearHeaderXPath = String.format(datePickerYearDynamicXPath, yearAsInt);
@@ -229,7 +228,7 @@ public class HomePage extends BasePageToInheritFrom {
 				.build()
 				.perform();
 
-//		Assert.assertEquals(monthAsInt + "/" + dateAsInt + "/" + yearAsInt, datePickerDepTextBox.getText()); need to replace with js executor script to get text
+		Assert.assertTrue(((String)(((JavascriptExecutor) driver).executeScript(String.format("return document.getElementById('%s').value", datePickerDepTextBoxID)))).contains(monthAsInt + "/" + dateAsInt + "/" + yearAsInt));
 	}
 
 	public void paxCountPicker(int noOfPaxOneToNine){
@@ -260,7 +259,7 @@ public class HomePage extends BasePageToInheritFrom {
 //
 //		noOfPaxOptionToSelect.click();
 //		Assert.assertTrue(paxPickerDropdownSelector.getText().contains(String.format("%d Passenger", noOfPaxOneToNine)));
-//		Assert.assertEquals(paxPickerDropdownSelector.getText(), String.valueOf(noOfPaxOneToNine)); need to replace with js executor script to get text
+		Assert.assertEquals(((String)(((JavascriptExecutor) driver).executeScript(String.format("return document.getElementById('%s').value", paxPickerDropdownSelectorID)))), String.valueOf(noOfPaxOneToNine));
 	}
 
 	public void hoverOverAndClickSearchForFlightsButton(){
