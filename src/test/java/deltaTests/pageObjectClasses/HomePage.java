@@ -1,9 +1,6 @@
 package deltaTests.pageObjectClasses;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
@@ -60,6 +57,7 @@ public class HomePage extends BasePageToInheritFrom {
 	@FindBy(xpath = "//input[@name='departDate']")
 	WebElement datePickerDepTextBox;
 	String datePickerDeptTextBox = "//input[@name='departDate']";
+	String datePickerDeptTextBoxID = "aa-leavingOn";
 
 	@FindBy(xpath = "//a[@aria-label='Next Month']")
 	WebElement selectNextMonth;
@@ -72,6 +70,7 @@ public class HomePage extends BasePageToInheritFrom {
 	@FindBy(xpath = "//select[@id='flightSearchForm.adultOrSeniorPassengerCount']")
 	WebElement paxPickerDropdownSelector;
 	String paxPickerDropdownSelectorXPath = "//select[@id='flightSearchForm.adultOrSeniorPassengerCount']";
+	String paxPickerDropdownSelectorID = "flightSearchForm.adultOrSeniorPassengerCount";
 
 	@FindBy(xpath = "//ul[@id = 'selectTripType-desc']")
 	WebElement paxPickerDropdownAllOptionsBox;
@@ -273,8 +272,8 @@ public class HomePage extends BasePageToInheritFrom {
 				.click()
 				.build()
 				.perform();
-		// Need to replace with JS Executor to get text
-//		Assert.assertEquals(monthAsInt + "/" + dateAsInt + "/" + yearAsInt, datePickerDepTextBox.getText());
+
+		Assert.assertTrue(((String)(((JavascriptExecutor) driver).executeScript(String.format("return document.getElementById('%s').value",datePickerDeptTextBoxID)))).contains(monthAsInt + "/" + dateAsInt + "/" + yearAsInt));
 
 	}
 
@@ -283,6 +282,7 @@ public class HomePage extends BasePageToInheritFrom {
 		Assert.assertTrue(paxPickerDropdownSelector.isDisplayed());
 
 		new Select(paxPickerDropdownSelector).selectByVisibleText(String.valueOf(noOfPaxOneToNine));
+		Assert.assertEquals(((String)(((JavascriptExecutor) driver).executeScript(String.format("return document.getElementById('%s').value", paxPickerDropdownSelectorID)))), String.valueOf(noOfPaxOneToNine));
 //		actions
 //				.moveToElement(paxPickerDropdownSelector)
 //				.click()
