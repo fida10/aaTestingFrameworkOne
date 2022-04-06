@@ -8,7 +8,7 @@ import org.testng.Assert;
 
 import java.text.DateFormatSymbols;
 import java.util.Arrays;
-
+import java.util.Locale;
 
 public class HomePage extends BasePageToInheritFrom {
 
@@ -168,17 +168,14 @@ public class HomePage extends BasePageToInheritFrom {
 				.click()
 				.build()
 				.perform();
-//		alertAdvisoryCloseButton.click();
+
 
 	}
-
-	//openLoginPageFromHomePage does not validate that login page has opened
-	public void openLoginPageFromHomePageNotValidating() {
+	public void openLoginPageFromHomePageNotValidating(){
 		//overlayImageAdvertisement.click();
 		closeAlertAdvisory();
 		loginButtonOnHomePage.click();
 	}
-
 	// selects to and from cities
 	public void enterCitiesToTravelTo(String origin, String arrival) {
 
@@ -198,74 +195,48 @@ public class HomePage extends BasePageToInheritFrom {
 				.build()
 				.perform();
 		driver.findElement(By.xpath(String.format(firstDropdownSuggestionDynamicXPath, arrival.toUpperCase()))).click();
-
 	}
+		public void selectTypeOfTrip(String tripType){
 
-	public void selectTypeOfTrip(String tripType) {
-		//hover over dropdown
-		//click on it
-		//assert that tripType appears (use dynamic string)
-		//move to and click on that trip type
-		//assert that that trip type now appears in the type of trip box
-//		Assert.assertTrue(typeOfTripDropDownSelector.isDisplayed());
-//
-//
-//		actions
-//				.moveToElement(typeOfTripDropDownSelector)
-//				.click()
-//				.build()
-//				.perform();
+			StringBuilder sb = new StringBuilder(tripType.toLowerCase());
 
+			char firstCharUpperCase =  (char) (sb.charAt(0) - 32);
+			sb.deleteCharAt(0).reverse();
+			sb.append(firstCharUpperCase).reverse();
 
-		StringBuilder sb = new StringBuilder(tripType.toLowerCase());
+			WebElement typeOfTrip = driver.findElement(By.xpath(String.format(typeOfTripOptionDynamicXPath, sb)));
+			Assert.assertTrue(typeOfTrip.isDisplayed());
 
-		char firstCharUpperCase =  (char) (sb.charAt(0) - 32);
-		sb.deleteCharAt(0).reverse();
-		sb.append(firstCharUpperCase).reverse();
-
-		WebElement typeOfTrip = driver.findElement(By.xpath(String.format(typeOfTripOptionDynamicXPath, sb)));
-		Assert.assertTrue(typeOfTrip.isDisplayed());
-
-		actions
-				.moveToElement(typeOfTrip)
-				.click()
-				.build()
-				.perform();
-
-//		Assert.assertEquals(typeOfTripDropDownSelector.getText(), tripType);
+			actions
+					.moveToElement(typeOfTrip)
+					.click()
+					.build()
+					.perform();
 
 
 	}
-
-	public void datePicker(int monthAsInt, int dateAsInt, int yearAsInt) {
+	public void datePicker(int monthAsInt, int dateAsInt, int yearAsInt){
 		actions
 				.moveToElement(datePickerOpener)
 				.click()
 				.build()
 				.perform();
 
-		String monthAsString = new DateFormatSymbols().getMonths()[monthAsInt - 1];
+		String monthAsString = new DateFormatSymbols().getMonths()[monthAsInt-1];
 
 		String datePickerMonthHeaderXPath = String.format(datePickerMonthDynamicXPath, monthAsString);
 		String datePickerYearHeaderXPath = String.format(datePickerYearDynamicXPath, yearAsInt);
 
-//		WebElement datePickerMonthHeader = driver.findElement(By.xpath(String.format(datePickerMonthDynamicXPath, monthAsString)));
-//		WebElement datePickerYearHeader = driver.findElement(By.xpath(String.format(datePickerYearDynamicXPath, yearAsInt)));
-
-		while (!(exceptionHandling.isDisplayedEnhanced(datePickerMonthHeaderXPath, 1, driver) &&
-				exceptionHandling.isDisplayedEnhanced(datePickerYearHeaderXPath, 1, driver))) {
-
+		while (!(exceptionHandling.isDisplayedEnhanced(datePickerMonthHeaderXPath, 1, driver) && exceptionHandling.isDisplayedEnhanced(datePickerYearHeaderXPath, 1, driver))){
 			actions
 					.moveToElement(selectNextMonth)
 					.click()
 					.build()
 					.perform();
-
-
+			//add timeout
 		}
 
-		WebElement datePickerIndivDate = driver.findElement(By.xpath(String.format(datePickerMonthHeaderXPath.
-				concat("/parent::div/parent::div/following-sibling::table//a[text()= '%d']"), dateAsInt)));
+		WebElement datePickerIndivDate = driver.findElement(By.xpath(String.format(datePickerMonthHeaderXPath.concat("/parent::div/parent::div/following-sibling::table//a[text() = '%d']"), dateAsInt)));
 
 		actions
 				.moveToElement(datePickerIndivDate)
@@ -273,8 +244,7 @@ public class HomePage extends BasePageToInheritFrom {
 				.build()
 				.perform();
 
-		Assert.assertTrue(((String)(((JavascriptExecutor) driver).executeScript(String.format("return document.getElementById('%s').value",datePickerDeptTextBoxID)))).contains(monthAsInt + "/" + dateAsInt + "/" + yearAsInt));
-
+		Assert.assertTrue(((String)(((JavascriptExecutor) driver).executeScript(String.format("return document.getElementById('%s').value", datePickerDepTextBoxID)))).contains(monthAsInt + "/" + dateAsInt + "/" + yearAsInt));
 	}
 
 	public void paxCountPicker(int noOfPaxOneToNine) {
@@ -283,40 +253,6 @@ public class HomePage extends BasePageToInheritFrom {
 
 		new Select(paxPickerDropdownSelector).selectByVisibleText(String.valueOf(noOfPaxOneToNine));
 		Assert.assertEquals(((String)(((JavascriptExecutor) driver).executeScript(String.format("return document.getElementById('%s').value", paxPickerDropdownSelectorID)))), String.valueOf(noOfPaxOneToNine));
-//		actions
-//				.moveToElement(paxPickerDropdownSelector)
-//				.click()
-//				.build()
-//				.perform();
-//
-//		WebElement noOfPaxOptionToSelect = driver.findElement(By.xpath(String.format(noOfPaxOptionToSelectDynamicXPath, noOfPaxOneToNine)));
-//
-////		actions
-////				.moveToElement(noOfPaxOptionToSelect)
-////				.build()
-////				.perform();
-//
-////		Assert.assertTrue(noOfPaxOptionToSelect.getAttribute("class").contains("select-ui-optionList-hover"));
-////		noOfPaxOptionToSelect.click();
-//
-//		while(!noOfPaxOptionToSelect.getAttribute("class").contains("select-ui-optionList-hover")){
-//			actions
-//					.sendKeys(Keys.DOWN)
-//					.build()
-//					.perform();
-//		}
-//
-//		/*
-//		* Reason for using a while loop
-//		* When we hover over the passenger count selection we want, there is a delay in the website.
-//		* There is a delay between clicking the dropdown and the dropdown options appearing
-//		* We use keys.DOWNS to scroll to the options we want. This also has the benefit of checking all the other options
-//		* initially using the direct method of clicking, the wrong number of pax would be clicked since it took a while
-//		* for all the pax numbers to be displayed
-//		* */
-//		noOfPaxOptionToSelect.click();
-//		Assert.assertTrue(paxPickerDropdownSelector.getText().contains(String.format("%d Passenger", noOfPaxOneToNine)));
-//		Assert.assertEquals(paxPickerDropdownSelector.getText(), String.valueOf(noOfPaxOneToNine));
 	}
 
 	public void hoverOverAndClickSearchForFlightsButton(){
@@ -327,4 +263,9 @@ public class HomePage extends BasePageToInheritFrom {
 				.perform();
 
 	}
+}
+
+
+
+
 }

@@ -47,10 +47,4 @@ public class TestSuiteOne {
 		homepage.hoverOverAndClickSearchForFlightsButton();
 //		driver.quit();
 	}
-
-//	@Test
-//	public void datePicker(){
-//		homepage.closeAlertAdvisory();
-//		homepage.datePicker(5, 25, 2022);
-//		driver.quit();
-	}
+}
