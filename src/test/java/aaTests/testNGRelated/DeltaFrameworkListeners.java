@@ -1,4 +1,4 @@
-package deltaTests.testNGRelated;
+package aaTests.testNGRelated;
 
 import org.testng.ITestContext;
 import org.testng.ITestListener;
