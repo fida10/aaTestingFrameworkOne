@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>deltaTests</groupId>
-  <artifactId>deltaAirlinesTestingFramework</artifactId>
+  <groupId>aaTests</groupId>
+  <artifactId>aaAirlinesTestingFramework</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>deltaAirlinesTestingFramework</name>
+  <name>aaAirlinesTestingFramework</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -42,7 +42,7 @@
           <version>3.0.0-M5</version>
           <configuration>
             <suiteXmlFiles>
-              <suiteXmlFile>src/test/java/deltaTests/testNGRelated/testNGSuites/testng.xml</suiteXmlFile>
+              <suiteXmlFile>src/test/java/aaTests/testNGRelated/testNGSuites/testng.xml</suiteXmlFile>
             </suiteXmlFiles>
           </configuration>
         </plugin>

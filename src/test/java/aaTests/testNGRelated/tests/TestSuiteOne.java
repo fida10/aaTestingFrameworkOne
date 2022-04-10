@@ -1,14 +1,10 @@
-package deltaTests.testNGRelated.tests;
+package aaTests.testNGRelated.tests;
 
-import deltaTests.Initializer;
-import deltaTests.pageObjectClasses.HomePage;
-import deltaTests.pageObjectClasses.LoginPage;
-import org.openqa.selenium.By;
+import aaTests.Initializer;
+import aaTests.pageObjectClasses.HomePage;
+import aaTests.pageObjectClasses.LoginPage;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class TestSuiteOne {
