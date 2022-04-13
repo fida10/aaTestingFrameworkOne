@@ -27,9 +27,9 @@ public class LoginPage extends BasePageToInheritFrom{
 	WebElement keepMeLoggedInCheckbox;
 	String keepMeLoggedInCheckboxXPath = "//label[@for='rememberMe']/span";
 
-	@FindBy(xpath = "//button[@class='btn']")
+	@FindBy(xpath = "//button[@id='button_login']")
 	WebElement loginButton;
-	String loginButtonXPath = "//button[@class='btn']";
+	String loginButtonXPath = "//button[@id='button_login']";
 
 	public LoginPage(WebDriver driver) {
 		super(driver);
