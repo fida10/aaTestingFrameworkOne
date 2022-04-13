@@ -8,7 +8,6 @@ import org.testng.Assert;
 
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
-import java.util.List;
 
 public class SearchResultsPage extends BasePageToInheritFrom {
 
