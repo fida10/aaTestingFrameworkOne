@@ -25,17 +25,17 @@ public class TestSuiteOne {
 		driver.get("https://aa.com");
 	}
 
-//	@Test
-//	public void openLoginPage() {
-//		homepage.validatePageHasAppeared();
-//		homepage.openLoginPageFromHomePageNotValidating();
-//		loginPage.validatePageHasAppeared();
-//		loginPage.loginToDelta("shihabSylhetTestOne", "Sylhettest", "$shihabSylhetTest1");
-//		homepage.validateUsernameOfHomePageLoggedIn("Shihabtest");
-//		System.out.println("TEST PASSED");
-//		driver.quit();
-//	}
-//
+	@Test
+	public void openLoginPage() {
+		homepage.validatePageHasAppeared();
+		homepage.openLoginPageFromHomePageNotValidating();
+		loginPage.validatePageHasAppeared();
+		loginPage.loginToAA("shihabSylhetTestOne", "Sylhettest", "$shihabSylhetTest1");
+		homepage.validateUsernameOfHomePageLoggedIn("Shihabtest");
+		System.out.println("TEST PASSED");
+		driver.quit();
+	}
+
 	@Test
 	public void searchForFlight() {
 		homepage.closeAlertAdvisory();

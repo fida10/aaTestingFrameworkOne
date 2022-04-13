@@ -7,13 +7,13 @@ import org.testng.Assert;
 
 public class LoginPage extends BasePageToInheritFrom{
 
-	@FindBy(xpath = "//h1[contains(text(), 'To Delta')]")
+	@FindBy(xpath = "//h1[contains(text(), 'Log in')]")
 	WebElement loginPageHeader;
-	String loginPageHeaderXPath = "//h1[contains(text(), 'To Delta')]";
+	String loginPageHeaderXPath = "//h1[contains(text(), 'Log in')]";
 
-	@FindBy(xpath = "//input[@id = 'userId']")
+	@FindBy(xpath = "//input[@id = 'loginId']")
 	WebElement usernameBox;
-	String usernameBoxXPath = "//input[@id = 'userId']";
+	String usernameBoxXPath = "//input[@id = 'loginId']";
 
 	@FindBy(xpath = "//input[@id = 'lastName']")
 	WebElement lastNameBox;
@@ -45,7 +45,7 @@ public class LoginPage extends BasePageToInheritFrom{
 	}
 
 	//workflow methods
-	public void loginToDelta(String username, String lastName, String password){
+	public void loginToAA(String username, String lastName, String password){
 
 
 		actions
