@@ -45,10 +45,8 @@ public class TestSuiteOne {
 		homepage.paxCountPicker(5);
 		homepage.hoverOverAndClickSearchForFlightsButton();
 		searchResultsPage.validatePageHasAppeared();
-
+		searchResultsPage.checkOriginArrivalTripType("DFW", "CMB", "One Way");
 		searchResultsPage.validateCorrectDepartDate(5, 25, 2022);
 		driver.quit();
 	}
-
-
 }
