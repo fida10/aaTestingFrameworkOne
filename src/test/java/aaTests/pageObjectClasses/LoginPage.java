@@ -23,17 +23,13 @@ public class LoginPage extends BasePageToInheritFrom{
 	WebElement passwordBox;
 	String passwordBoxXpath = "//input[@id = 'password']";
 
-	@FindBy(xpath = "//button[@class = 'passwordIcon']")
-	WebElement passwordRevealButton;
-	String passwordRevealButtonXPath = "//button[@class = 'passwordIcon']";
-
-	@FindBy(xpath = "//input[@id = 'persistentLogin_CheckBox']")
+	@FindBy(xpath = "//label[@for='rememberMe']/span")
 	WebElement keepMeLoggedInCheckbox;
-	String keepMeLoggedInCheckboxXPath = "//input[@id = 'persistentLogin_CheckBox']";
+	String keepMeLoggedInCheckboxXPath = "//label[@for='rememberMe']/span";
 
-	@FindBy(xpath = "//div[@class = 'loginButtonDiv']/button[@type = 'submit']")
+	@FindBy(xpath = "//button[@class='btn']")
 	WebElement loginButton;
-	String loginButtonXPath = "//button[@type = 'submit']";
+	String loginButtonXPath = "//button[@class='btn']";
 
 	public LoginPage(WebDriver driver) {
 		super(driver);
