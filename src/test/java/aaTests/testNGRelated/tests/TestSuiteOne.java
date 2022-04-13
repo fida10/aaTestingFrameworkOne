@@ -3,6 +3,7 @@ package aaTests.testNGRelated.tests;
 import aaTests.Initializer;
 import aaTests.pageObjectClasses.HomePage;
 import aaTests.pageObjectClasses.LoginPage;
+import aaTests.pageObjectClasses.SearchResultsPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -11,6 +12,7 @@ public class TestSuiteOne {
 	private WebDriver driver;
 	private HomePage homepage;
 	private LoginPage loginPage;
+	private SearchResultsPage searchResultsPage;
 
 	@BeforeMethod
 	public void initializeWebdriver() {
@@ -19,6 +21,7 @@ public class TestSuiteOne {
 		driver = initializer.getDriver();
 		homepage = new HomePage(driver);
 		loginPage = new LoginPage(driver);
+		searchResultsPage = new SearchResultsPage(driver);
 		driver.get("https://aa.com");
 	}
 
@@ -41,6 +44,8 @@ public class TestSuiteOne {
 		homepage.datePicker(5, 25, 2022);
 		homepage.paxCountPicker(5);
 		homepage.hoverOverAndClickSearchForFlightsButton();
-//		driver.quit();
+		searchResultsPage.validatePageHasAppeared();
+		searchResultsPage.checkOriginArrivalTripType("DFW", "CMB", "One Way");
+		driver.quit();
 	}
 }

@@ -2,10 +2,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
     <listeners>
-        <listener class-name="aaTests.testNGRelated.DeltaFrameworkListeners"/>
+        <listener class-name="aaTests.testNGRelated.AAFrameworkListeners"/>
     </listeners>
     <test verbose="2" preserve-order="true"
-          name="DeltaTestsOne">
+          name="AATestsOne">
         <classes>
             <class name="aaTests.testNGRelated.tests.TestSuiteOne"/>
         </classes>
