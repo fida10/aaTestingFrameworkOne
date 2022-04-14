@@ -57,8 +57,6 @@ public class LoginPage extends BasePageToInheritFrom{
 				.moveToElement(lastNameBox)
 				.click()
 				.sendKeys(lastName)
-				.moveToElement(passwordRevealButton)
-				.click()
 				.moveToElement(passwordBox)
 				.click()
 				.sendKeys(password)
