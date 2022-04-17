@@ -1,5 +1,7 @@
 *.png
+*.jpeg
 
 /target
 /.idea
 *.DS_Store
+/screenshots

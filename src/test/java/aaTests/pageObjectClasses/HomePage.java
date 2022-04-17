@@ -13,9 +13,9 @@ public class HomePage extends BasePageToInheritFrom {
 	WebElement alertAdvisoryCloseButton;
 	String alertAdvisoryCloseButtonXPath = "//button[@id='globalMessageClose']";
 
-	@FindBy(xpath = "//button[contains(@class, 'login')]")
+	@FindBy(xpath = "//a[@id='log-in-button']")
 	WebElement loginButtonOnHomePage;
-	String loginButtonHomePageXPath = "//button[contains(@class, 'login')]";
+	String loginButtonHomePageXPath = "//a[@id='log-in-button']";
 
 	@FindBy(xpath = "//div[contains(@class, 'card-img-overlay')]")
 	WebElement overlayImageAdvertisement;
