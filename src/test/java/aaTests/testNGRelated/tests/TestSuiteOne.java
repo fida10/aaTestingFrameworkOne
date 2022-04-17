@@ -1,6 +1,7 @@
 package aaTests.testNGRelated.tests;
 
 import aaTests.Initializer;
+import aaTests.pageObjectClasses.ChooseFlightsPage;
 import aaTests.pageObjectClasses.HomePage;
 import aaTests.pageObjectClasses.LoginPage;
 import aaTests.pageObjectClasses.SearchResultsPage;
@@ -19,6 +20,8 @@ public class TestSuiteOne {
 	private HomePage homepage;
 	private LoginPage loginPage;
 	private SearchResultsPage searchResultsPage;
+	private ChooseFlightsPage chooseFlightsPage;
+
 	private ScreenshotCaptureHandling screenshotCaptureHandling;
 
 	@BeforeMethod
@@ -29,6 +32,7 @@ public class TestSuiteOne {
 		homepage = new HomePage(driver);
 		loginPage = new LoginPage(driver);
 		searchResultsPage = new SearchResultsPage(driver);
+		chooseFlightsPage = new ChooseFlightsPage(driver);
 
 		screenshotCaptureHandling = new ScreenshotCaptureHandling(driver);
 
@@ -58,10 +62,13 @@ public class TestSuiteOne {
 		searchResultsPage.checkOriginArrivalTripType("DFW", "CMB", "One Way");
 		searchResultsPage.validateCorrectDepartDate(5, 25, 2022);
 
+
+		chooseFlightsPage.validatePageHasAppeared();
+		chooseFlightsPage.scrollDownToAndClickContinueAsGuest();
+
 		String dateFormat = "yyyy" + "_" + "MM" + "_" + "dd" + "__" + "a_hh_mm_ss";
 		DateTimeFormatter dtForm = DateTimeFormatter.ofPattern(dateFormat); //formats date with the pattern specified above
 		LocalDateTime current = LocalDateTime.now();
-
 		screenshotCaptureHandling.returnScreenshotAndSave(System.getProperty("user.dir") + File.separator + "screenshots" + File.separator + dtForm.format(current));
 
 		driver.quit();
