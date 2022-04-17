@@ -56,6 +56,7 @@ public class TestSuiteOne {
 		searchResultsPage.validatePageHasAppeared();
 		searchResultsPage.checkOriginArrivalTripType("DFW", "CMB", "One Way");
 		searchResultsPage.validateCorrectDepartDate(5, 25, 2022);
+		searchResultsPage.selectClassandFare("Business");
 
 
 		String dateFormat = "yyyy" + "_" + "MM" + "_" + "dd" + "__" + "a_hh_mm_ss";
@@ -67,7 +68,4 @@ public class TestSuiteOne {
 		driver.quit();
 	}
 
-	public static void main(String[] args) {
-		System.out.println(System.getProperty("user.dir") + File.separator);
-	}
 }
