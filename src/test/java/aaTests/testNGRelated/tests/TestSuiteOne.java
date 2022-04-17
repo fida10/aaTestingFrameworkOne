@@ -1,6 +1,7 @@
 package aaTests.testNGRelated.tests;
 
 import aaTests.Initializer;
+import aaTests.pageObjectClasses.ChooseFlightsPage;
 import aaTests.pageObjectClasses.HomePage;
 import aaTests.pageObjectClasses.LoginPage;
 import aaTests.pageObjectClasses.SearchResultsPage;
@@ -20,6 +21,9 @@ public class TestSuiteOne {
 	private LoginPage loginPage;
 	private SearchResultsPage searchResultsPage;
 	private ScreenshotCaptureHandling screenshotCaptureHandling;
+	private ChooseFlightsPage chooseFlightsPage;
+
+	private ScreenshotCaptureHandling screenshotCaptureHandling;
 
 	@BeforeMethod
 	public void initializeWebdriver() {
@@ -30,6 +34,10 @@ public class TestSuiteOne {
 		loginPage = new LoginPage(driver);
 		searchResultsPage = new SearchResultsPage(driver);
 		screenshotCaptureHandling= new ScreenshotCaptureHandling(driver);
+		chooseFlightsPage = new ChooseFlightsPage(driver);
+
+		screenshotCaptureHandling = new ScreenshotCaptureHandling(driver);
+
 		driver.get("https://aa.com");
 	}
 
@@ -57,6 +65,8 @@ public class TestSuiteOne {
 		searchResultsPage.checkOriginArrivalTripType("DFW", "CMB", "One Way");
 		searchResultsPage.validateCorrectDepartDate(5, 25, 2022);
 		searchResultsPage.selectClassandFare("Business");
+		chooseFlightsPage.validatePageHasAppeared();
+		chooseFlightsPage.scrollDownToAndClickContinueAsGuest();
 
 
 		String dateFormat = "yyyy" + "_" + "MM" + "_" + "dd" + "__" + "a_hh_mm_ss";
@@ -67,5 +77,4 @@ public class TestSuiteOne {
 		screenshotCaptureHandling.returnScreenshotAndSave(System.getProperty("user.dir") + File.separator + "screenshots" + File.separator + dtForm.format(current));
 		driver.quit();
 	}
-
 }

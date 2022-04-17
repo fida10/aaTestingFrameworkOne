@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class ScreenshotCaptureHandling {
-
     private final WebDriver driver;
 
     public ScreenshotCaptureHandling(WebDriver driver){
