@@ -24,6 +24,7 @@ public class SearchResultsPage extends BasePageToInheritFrom {
 	String firstOriginSearchResultDynamicXpath = "//div[@class='span4 span-phone6']/span[@class='flight-airport-code' and contains(text(), '%s')]";
 	String firstArrivalSearchResultDynamicXpath = "//div[@class='span4 span-phone5']/span[@class='flight-airport-code' and contains(text(), '%s')]";
 	String typeofTripInSearchResultsValidationDynamicXpath = "(//div[@class='triptype']['%s'])";
+	String selectFareDynamicXpath = "//button[@data-farename='%s']";
 
 
 	public SearchResultsPage(WebDriver driver) {
@@ -68,5 +69,11 @@ public class SearchResultsPage extends BasePageToInheritFrom {
 
 		WebElement typeOfTripInSearchResultsValidation = driver.findElement(By.xpath(String.format(typeofTripInSearchResultsValidationDynamicXpath, sb)));
 		Assert.assertTrue(typeOfTripInSearchResultsValidation.getText().contains(sb));
+	}
+
+	public void selectClassandFare(String classType){
+
+		Assert.assertTrue(exceptionHandling.isDisplayedEnhanced(String.format(selectFareDynamicXpath, classType),5, driver));
+		driver.findElement(By.xpath(String.format(selectFareDynamicXpath, classType))).click();
 	}
 }

@@ -20,6 +20,7 @@ public class TestSuiteOne {
 	private HomePage homepage;
 	private LoginPage loginPage;
 	private SearchResultsPage searchResultsPage;
+	private ScreenshotCaptureHandling screenshotCaptureHandling;
 	private ChooseFlightsPage chooseFlightsPage;
 
 	private ScreenshotCaptureHandling screenshotCaptureHandling;
@@ -32,6 +33,7 @@ public class TestSuiteOne {
 		homepage = new HomePage(driver);
 		loginPage = new LoginPage(driver);
 		searchResultsPage = new SearchResultsPage(driver);
+		screenshotCaptureHandling= new ScreenshotCaptureHandling(driver);
 		chooseFlightsPage = new ChooseFlightsPage(driver);
 
 		screenshotCaptureHandling = new ScreenshotCaptureHandling(driver);
@@ -48,7 +50,8 @@ public class TestSuiteOne {
 //		homepage.validateUsernameOfHomePageLoggedIn("Shihabtest");
 //		System.out.println("TEST PASSED");
 //		driver.quit();
-//	} login does not work with automation for airlines, will skip login and registration flows
+//	} Automation does not work with registration flow, will skip these flows5
+	// Tests are here for reference
 
 	@Test
 	public void searchForFlight() {
@@ -61,16 +64,17 @@ public class TestSuiteOne {
 		searchResultsPage.validatePageHasAppeared();
 		searchResultsPage.checkOriginArrivalTripType("DFW", "CMB", "One Way");
 		searchResultsPage.validateCorrectDepartDate(5, 25, 2022);
-
-
+		searchResultsPage.selectClassandFare("Business");
 		chooseFlightsPage.validatePageHasAppeared();
 		chooseFlightsPage.scrollDownToAndClickContinueAsGuest();
+
 
 		String dateFormat = "yyyy" + "_" + "MM" + "_" + "dd" + "__" + "a_hh_mm_ss";
 		DateTimeFormatter dtForm = DateTimeFormatter.ofPattern(dateFormat); //formats date with the pattern specified above
 		LocalDateTime current = LocalDateTime.now();
+//		boolean wasPathCreated = new File(System.getProperty("user.dir") + File.separator + "screenshots" + File.separator + dtForm.format(current)).mkdir();
+//		System.out.println("Was the path created" +wasPathCreated);
 		screenshotCaptureHandling.returnScreenshotAndSave(System.getProperty("user.dir") + File.separator + "screenshots" + File.separator + dtForm.format(current));
-
 		driver.quit();
 	}
 }
